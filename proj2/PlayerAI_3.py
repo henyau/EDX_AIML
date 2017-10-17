@@ -1,3 +1,10 @@
+"""
+Implements an adversarial AI agent to solve 4096 Puzzle
+
+Use weights to create a snake like structure to merge efficiently
+
+@author: Henry Yau
+"""
 from random import randint
 from BaseAI import BaseAI
 import math
@@ -5,6 +12,7 @@ import math
 
  
 class PlayerAI(BaseAI):
+    """derive from BaseAI class, implements getMove() called in the GameManager"""
     def getNewTileValue(self):
         if randint(0,99) < 100 * 0.9:
             return 2
@@ -12,7 +20,8 @@ class PlayerAI(BaseAI):
             return 4;
     
     def Heuristic(self, grid):
-    #Try to keep largest tile in top left and others in decreasing order from left to right
+    """Try to keep largest tile in top left and others in decreasing order 
+    from left to right"""
         emptyTiles = len([i for i, x in enumerate(grid.map) if x == 0])
         maxTile = max(grid.map)
         MergeBonus = 0
@@ -101,7 +110,8 @@ class PlayerAI(BaseAI):
 ##        
 ##        return cost
     
-    def Terminate(self, grid, depth): #test depth (many moves cells free
+    def Terminate(self, grid, depth): 
+    """Terminate using depth test"""
 ##        cells = grid.getAvailableCells()
     ##        moves = grid.getAvailableMoves()
     ##        if len(moves)==0:
@@ -112,8 +122,8 @@ class PlayerAI(BaseAI):
             return False
     
     def Maximize(self, grid, alpha, beta,depth):
-##        print(grid)
-##        print(grid.getAvailableMoves())
+        """Attempt to maximize score"""
+        
         if(self.Terminate(grid,depth)):
             return (None, self.Heuristic(grid))
         (maxChild, maxUtility) = (None, -float('inf'))
@@ -137,6 +147,7 @@ class PlayerAI(BaseAI):
     
     
     def Minimize(self,grid,alpha, beta, depth):
+        """Attempt to minimize score"""
 ##        if self.Terminate(grid):
 ##            return (None, self.Heuristic(grid))
         
@@ -166,6 +177,7 @@ class PlayerAI(BaseAI):
         return self.Maximize(grid1,-float('inf'),float('inf'),1)[0]
 
     def getMove(self, grid):
+        """Return optimal move """
         moves = grid.getAvailableMoves()
         
         print(moves)
