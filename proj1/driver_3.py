@@ -1,4 +1,29 @@
-#! python
+#! python 3
+"""
+8 piece game solver (slide puzzle)
+
+Solve using BFS, DFS, or A-Star
+call from command line:
+two arguments: solver type and board
+solver types are 'bfs','dfs', 'ast'
+board is comma separated string 6,1,8,4,0,2,7,3,5
+
+outputs steps to solve puzzle in `output.txt` along with other information:
+
+e.g. usage:
+python3 driver_3.py ast 6,1,8,4,0,2,7,3,5
+
+e.g. output:
+path_to_goal: ['Down', 'Left', ...., 'Up']
+cost_of_path: 70
+nodes_expanded: 470
+search_depth: 70
+max_search_depth: 95
+running_time: 0.0325319766998291
+
+
+@author: Henry Yau
+"""
 import itertools
 from collections import deque
 from queue import PriorityQueue
@@ -11,13 +36,15 @@ import time
 
 
 def print_board (state):
+"""prints the board"""
     print(state[0], state[1], state[2])
     print(state[3], state[4], state[5])
     print(state[6], state[7], state[8])
     print()
 
-#this moves the 0 tile up
+
 def move_up (state):
+"""moves the 0 tile up"""
     #find the 0 tile
     out_state = state[:] # holy shit if don't do copy, then it is just a reference....
     ind0 = out_state.index(0)
@@ -31,6 +58,7 @@ def move_up (state):
         return None
         
 def move_down (state):
+"""moves the 0 tile down"""
     #find the 0 tile
     out_state = state[:]
     ind0 = out_state.index(0)
@@ -46,6 +74,7 @@ def move_down (state):
         
         
 def move_left (state):
+"""moves the 0 tile left"""
     #find the 0 tile
     out_state = state[:]
     ind0 = out_state.index(0)
@@ -59,6 +88,7 @@ def move_left (state):
         return None
         
 def move_right (state):
+"""moves the 0 tile right"""
     #find the 0 tile
     out_state = state[:]
     ind0 = out_state.index(0)
@@ -72,12 +102,14 @@ def move_right (state):
         return None
 
 def check_goal(state):
+"""check if end condition reached"""
     if (state==[0,1,2,3,4,5,6,7,8]):
         return True
     else:
         return False
 
 class Node:
+"""defines a Node for use in Tree"""
     def __init__(self, parent, op, state, depth, cost):
         self.parent = parent
         self.op = op
@@ -96,6 +128,7 @@ class Node:
         return hash
         
 def BFS(state):
+"""Perform a breadth-first search for state"""
     path_to_goal = []
     cost_of_path = 0
     nodes_expanded = 0
@@ -199,6 +232,7 @@ def BFS(state):
     write_target.close()
 
 def DFS(state):
+"""Perform a depth-first search for state"""
     path_to_goal = []
     cost_of_path = 0
     nodes_expanded = 0
@@ -307,6 +341,7 @@ def DFS(state):
     write_target.close()
 
 def GetDist(index, value):
+"""Find distance given index  and value"""
     if value == 0:
         return 0
     i = 0
@@ -378,6 +413,7 @@ def ManhattanDist(state):
     return totcost
 
 def AST(state):
+"""Perform an A-star search for state"""
     path_to_goal = []
     cost_of_path = 0
     nodes_expanded = 0
@@ -499,35 +535,34 @@ def AST(state):
 #order of moves UDLR    
     
 def main():
+"""command line arguments for solver are 'bfs', 'dfs' or 'ast'
+   followed by a comma separated board arguments string
+   e.g. 6,1,8,4,0,2,7,3,5
+"""
+    solverType = str(sys.argv[1])
+    board_state = []
+    board_string = sys.argv[2].split(',')
 
-##    solverType = str(sys.argv[1])
-##    board_state = []
-##    board_string = sys.argv[2].split(',')
-##
-##    for ichar in board_string:
-##        board_state.append(int(ichar))
-##
-##    print_board(board_state)
-##
-##    if solverType == 'bfs':
-##        BFS(board_state)
-##    elif solverType == 'dfs':
-##        DFS(board_state)
-##    elif solverType == 'ast':
-##        AST(board_state)
-##        
+    for ichar in board_string:
+        board_state.append(int(ichar))
+
+    print_board(board_state)
+
+    if solverType == 'bfs':
+        BFS(board_state)
+    elif solverType == 'dfs':
+        DFS(board_state)
+    elif solverType == 'ast':
+        AST(board_state)
         
-    board_state = [6,1,8,4,0,2,7,3,5]
+## some test boards        
+##    board_state = [6,1,8,4,0,2,7,3,5]
     #board_state = [8,6,4,2,1,3,5,7,0]
 ##    board_state = [1,2,5,3,4,0,6,7,8]
-    AST(board_state)  
+##    AST(board_state)  
     
 if __name__ == "__main__":
     main()
     
 #print("Resources used: ", resource.ru_maxrss(resource.RUSAGE_SELF)) #not available in windows and I have no room on VM
 
-
-#can do all this output stuff later, make sure we are doing stuff right first
-#outfilename = "out.txt"
-#writetarget = open(outfilename, 'w')
