@@ -1,19 +1,22 @@
+'''
+Movie sentiment analysis using Sci-Kit Learn
 
-'''train a SGD classifier using unigram representation,
+
+train a SGD classifier using unigram representation,
 predict sentiments on imdb_te.csv, and write output to
-unigram.output.txt'''
+unigram.output.txt
   	
-'''train a SGD classifier using bigram representation,
+train a SGD classifier using bigram representation,
 predict sentiments on imdb_te.csv, and write output to
-bigram.output.txt'''
+bigram.output.txt
  
- '''train a SGD classifier using unigram representation
- with tf-idf, predict sentiments on imdb_te.csv, and write 
- output to unigramtfidf.output.txt'''
+train a SGD classifier using unigram representation
+with tf-idf, predict sentiments on imdb_te.csv, and write 
+output to unigramtfidf.output.txt
   	
- '''train a SGD classifier using bigram representation
- with tf-idf, predict sentiments on imdb_te.csv, and write 
- output to bigramtfidf.output.txt'''
+train a SGD classifier using bigram representation
+with tf-idf, predict sentiments on imdb_te.csv, and write 
+output to bigramtfidf.output.txt'''
 
 
 #import csv
@@ -44,7 +47,8 @@ def token_freqs(doc):
     return freq
 
 def imdb_data_preprocess(inpath, stridelen, outpath="./", name="imdb_tr.csv", mix=False):
-    #strip the new lines
+    '''strip stop words from IMDB reviews'''
+    
     stopwords = [line.rstrip('\n') for line in open("stopwords.en.txt","r")]
     df = pd.DataFrame(columns = ["row", "text", "polarity"])
     row = 0
@@ -90,6 +94,7 @@ def imdb_data_preprocess(inpath, stridelen, outpath="./", name="imdb_tr.csv", mi
 
 
 def SGDUnigram(trainer = 'imdb_tr.csv'):
+    '''Run SGD classifier on unigrams'''
     stopwords = [line.rstrip('\n') for line in open("stopwords.en.txt","r")]
     
     trainingSet = pd.read_csv(trainer, encoding='latin1')
@@ -134,6 +139,7 @@ def SGDUnigram(trainer = 'imdb_tr.csv'):
 
 
 def SGDBigram(trainer = 'imdb_tr.csv'):
+    '''Run SGD classifier on bigrams'''
     trainingSet = pd.read_csv(trainer, encoding='latin1')
     trainXtext = trainingSet['text'].as_matrix()    
 
@@ -174,6 +180,7 @@ def SGDBigram(trainer = 'imdb_tr.csv'):
 
     
 def SGDUnigramTfidf(trainer = 'imdb_tr.csv'):
+    '''Run SGD classifier on unigrams with Term Frequency-Inverse Document Frequency'''
     trainingSet = pd.read_csv(trainer, encoding='latin1')
     trainXtext = trainingSet['text'].as_matrix()    
 
@@ -216,6 +223,7 @@ def SGDUnigramTfidf(trainer = 'imdb_tr.csv'):
 
 
 def SGDBigramTfidf(trainer = 'imdb_tr.csv'):
+    '''Run SGD classifier on unigrams with Term Frequency-Inverse Document Frequency'''
     trainingSet = pd.read_csv(trainer, encoding='latin1')
     trainXtext = trainingSet['text'].as_matrix()    
     y =  list(trainingSet['polarity'].as_matrix())
