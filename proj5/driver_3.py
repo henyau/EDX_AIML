@@ -1,3 +1,21 @@
+
+'''train a SGD classifier using unigram representation,
+predict sentiments on imdb_te.csv, and write output to
+unigram.output.txt'''
+  	
+'''train a SGD classifier using bigram representation,
+predict sentiments on imdb_te.csv, and write output to
+bigram.output.txt'''
+ 
+ '''train a SGD classifier using unigram representation
+ with tf-idf, predict sentiments on imdb_te.csv, and write 
+ output to unigramtfidf.output.txt'''
+  	
+ '''train a SGD classifier using bigram representation
+ with tf-idf, predict sentiments on imdb_te.csv, and write 
+ output to bigramtfidf.output.txt'''
+
+
 #import csv
 import pandas as pd
 import os
@@ -240,7 +258,9 @@ def SGDBigramTfidf(trainer = 'imdb_tr.csv'):
 
     
 if __name__ == "__main__":
-##    create the training set.
+    '''create the training set'''
+    
+    
     imdb_data_preprocess(train_path, 1) #uncomment when submitting
     print("done preprocessing")
     SGDUnigram()
@@ -250,22 +270,7 @@ if __name__ == "__main__":
     SGDBigramTfidf()    
     
 
-##    '''train a SGD classifier using unigram representation,
-##    predict sentiments on imdb_te.csv, and write output to
-##    unigram.output.txt'''
-##  	
-##    '''train a SGD classifier using bigram representation,
-##    predict sentiments on imdb_te.csv, and write output to
-##    bigram.output.txt'''
-##     
-##     '''train a SGD classifier using unigram representation
-##     with tf-idf, predict sentiments on imdb_te.csv, and write 
-##     output to unigramtfidf.output.txt'''
-##  	
-##     '''train a SGD classifier using bigram representation
-##     with tf-idf, predict sentiments on imdb_te.csv, and write 
-##     output to bigramtfidf.output.txt'''
-##     pass
+
 
 
 

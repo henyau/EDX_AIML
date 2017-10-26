@@ -1,3 +1,7 @@
+"""
+Grid class
+"""
+
 from copy import deepcopy
 
 directionVectors = (UP_VEC, DOWN_VEC, LEFT_VEC, RIGHT_VEC) = ((-1, 0), (1, 0), (0, -1), (0, 1))

@@ -1,13 +1,21 @@
+"""
+The file `problem2_3.py` demonstraits a simple implementation of the 
+gradient descent algorithm for regression
+
+Usage: `python problem2_3.py input2.csv output2.csv`
+
+where input2.csv is has three columns of real numbers, x1,x2,y
+
+output2.csv has five columns, alpha, number of iterations, and coefficients
+beta such that beta = (X'X)^-1 X'y
+
+alpha is the learning rate which prescribed in alpha_vec
+                      
+"""
+
 import numpy as np
 import csv
 import sys
-
-##print("This is the name of the script: ", sys.argv[0])
-##print("Number of arguments: ", len(sys.argv))
-##print("The arguments are: " , str(sys.argv))
-
-##print(str(sys.argv[1]))
-##print(str(sys.argv[2]))
 
 X = []
 y = []
@@ -54,15 +62,7 @@ for alpha in alpha_vec:
     beta_vec = np.zeros((3,1))
     for i in range (0, maxIter):
         beta_vec[0] = beta_vec[0]- (alpha/n)*(X.dot(beta_vec)-y).sum()
-        
-##        Xtemp = np.array((X[:,1]))
-##        Xtemp = Xtemp[np.newaxis, :]        
-##        beta_vec[1] = beta_vec[1]- (alpha/n)*((X.dot(beta_vec)-y).dot(Xtemp)).sum()
-##        
-##        Xtemp = np.array((X[:,2]))
-##        Xtemp = Xtemp[np.newaxis, :]        
-##        beta_vec[2] = beta_vec[2]- (alpha/n)*((X.dot(beta_vec)-y).dot(Xtemp)).sum()
-##        Xtemp = np.array((X[:,1:2]))
+
         sum2 = 0
         for j in range (0,n):
             roww = np.array([X[j][1], X[j][2]])
@@ -73,11 +73,9 @@ for alpha in alpha_vec:
         
         beta_vec[1:3] = beta_vec[1:3]- (alpha/n)*sum2
         
-        
-    
     
     result_Mat.append([alpha, maxIter, float(beta_vec[0]), float(beta_vec[1]), float(beta_vec[2])])
-##print(result_Mat)
+
 with open(sys.argv[2], 'w', newline='') as csvfile:
     result_csv = csv.writer(csvfile, delimiter=',',
                   quotechar='|', quoting=csv.QUOTE_MINIMAL)      

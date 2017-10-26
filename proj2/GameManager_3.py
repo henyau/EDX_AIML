@@ -1,3 +1,8 @@
+"""
+GameManager class
+Takes care of player/computer turn
+
+"""
 from Grid_3       import Grid
 from ComputerAI_3 import ComputerAI
 from PlayerAI_3   import PlayerAI

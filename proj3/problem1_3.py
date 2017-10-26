@@ -1,18 +1,14 @@
-#percepton learning algorithm
+"""
+percepton classification 
+
+A simple implementation of the percepton learning algorithm for classification
+Usage: python problem1_3.py input1.csv output1.csv
+
+where input1.csv is has three columns, x,y and a label of either +1 or -1
+"""
 import numpy as np
-##import matplotlib.pyplot as plt
-
 import csv
-##import pandas as pd
-
 import sys
-
-print("This is the name of the script: ", sys.argv[0])
-print("Number of arguments: ", len(sys.argv))
-print("The arguments are: " , str(sys.argv))
-
-print(str(sys.argv[1]))
-print(str(sys.argv[2]))
 
 X = []
 y = []
@@ -28,12 +24,6 @@ with open(sys.argv[1], newline='') as csvfile:
          
 X = np.array(X)
 y = np.array(y)
-
-
-    
-    
-    
-    
 
 print(X)
 print(y)
@@ -52,22 +42,15 @@ while done == False:
     for xj in X:
         fxi = -1
         if w.dot(xj)+b>0: # need to actual do perceptron output
-             fxi = 1
-        
-        
+             fxi = 1  
         
         if y[i]*fxi <=0 :
             done = False
-            #yj = w.dot(xj)+b #actual out
             w[0]= w[0]+y[i]*xj[0]
             w[1]= w[1]+y[i]*xj[1]
-            b = b+y[i]
-        
+            b = b+y[i]        
         i += 1
-##    with open(sys.argv[2], 'w', newline='') as csvfile:
-##        outputweights = csv.writer(csvfile, delimiter=',',
-##                            quotechar='|', quoting=csv.QUOTE_MINIMAL)      
-##        outputweights.writerow([w[0],w[1],b])
+
     print('w = ', w)
     print('b = ', b)
     weights.append([w[0],w[1],b])

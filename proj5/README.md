@@ -4,8 +4,6 @@
 
 ---
 
-
-
 The goals of this project are the following:
 * Predict the sentiment of a movie review based on a small corpus of text using vectorized word count/frequency
 

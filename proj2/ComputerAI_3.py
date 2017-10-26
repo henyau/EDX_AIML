@@ -1,3 +1,7 @@
+"""
+Adversarial Computer AI class
+Just returns a random available cell
+"""
 from random import randint
 from BaseAI_3 import BaseAI
 

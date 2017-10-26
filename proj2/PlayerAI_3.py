@@ -20,8 +20,8 @@ class PlayerAI(BaseAI):
             return 4;
     
     def Heuristic(self, grid):
-    """Try to keep largest tile in top left and others in decreasing order 
-    from left to right"""
+        """Cost function. try to keep largest tile in top left and others in 
+        decreasing order"""
         emptyTiles = len([i for i, x in enumerate(grid.map) if x == 0])
         maxTile = max(grid.map)
         MergeBonus = 0
@@ -111,7 +111,7 @@ class PlayerAI(BaseAI):
 ##        return cost
     
     def Terminate(self, grid, depth): 
-    """Terminate using depth test"""
+        """Terminate using depth test"""
 ##        cells = grid.getAvailableCells()
     ##        moves = grid.getAvailableMoves()
     ##        if len(moves)==0:
